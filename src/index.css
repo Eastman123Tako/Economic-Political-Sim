@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background: #0b0e14;
+  color: #d6dae3;
+  font-family: 'Segoe UI', system-ui, Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #10131b; }
+::-webkit-scrollbar-thumb { background: #2b3040; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4058; }
+
+.tabular-nums { font-variant-numeric: tabular-nums; }
