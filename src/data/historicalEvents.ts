@@ -112,6 +112,33 @@ export const HISTORICAL_EVENTS: HistoricalEventDef[] = [
     oneTime: true,
   },
   {
+    id: 'fifth_republic_founded',
+    title: 'Founding of the Fifth Republic',
+    earliestDate: { year: 1958, month: 9 }, latestDate: { year: 1959, month: 1 },
+    condition: (w) => has(w, 'FRA'),
+    apply: (w) => {
+      const c = w.countries.FRA;
+      c.politics.parties = [
+        { id: 'fra_unr', name: 'UNR (Gaullist)', ideology: 'Gaullist/Nationalist', seatSharePct: 42, popularSupportPct: 40, inGovernment: true },
+        { id: 'fra_sfio', name: 'SFIO (Socialist)', ideology: 'Socialist', seatSharePct: 18, popularSupportPct: 17, inGovernment: false },
+        { id: 'fra_mrp', name: 'MRP (Christian Democrat)', ideology: 'Christian Democrat', seatSharePct: 15, popularSupportPct: 14, inGovernment: false },
+        { id: 'fra_pcf', name: 'French Communist Party (PCF)', ideology: 'Communist', seatSharePct: 19, popularSupportPct: 20, inGovernment: false },
+        { id: 'fra_independents', name: 'Independent Republicans', ideology: 'Liberal-Conservative', seatSharePct: 6, popularSupportPct: 9, inGovernment: false },
+      ];
+      c.politics.rulingPartyId = 'fra_unr';
+      c.politics.headOfState = 'Charles de Gaulle';
+      c.politics.headOfGovernment = 'Michel Debré';
+      c.politics.legislatureName = 'National Assembly (Fifth Republic)';
+      c.politics.electionCycleMonths = 84;
+      c.politics.nextElectionDate = { year: 1965, month: 12 };
+      c.politics.coalitionStabilityPct = 100;
+      c.politics.approvalPct = clamp(c.politics.approvalPct + 10, 2, 98);
+      c.flags.termsSinceLeaderChange = 1;
+      return 'Facing the Algerian crisis, France adopts a new constitution: Charles de Gaulle becomes President of a far more stable semi-presidential Fifth Republic.';
+    },
+    oneTime: true,
+  },
+  {
     id: 'sputnik',
     title: 'Sputnik Launch',
     earliestDate: { year: 1957, month: 10 }, latestDate: { year: 1959, month: 12 },
@@ -187,6 +214,47 @@ export const HISTORICAL_EVENTS: HistoricalEventDef[] = [
       bump(w, 'EGY', -12);
       bump(w, 'SYR', -10);
       return 'Israel decisively defeats a coalition of Arab states in the Six-Day War, reshaping the regional balance of power.';
+    },
+    oneTime: true,
+  },
+  {
+    id: 'moroccan_tunisian_independence',
+    title: 'Moroccan and Tunisian Independence',
+    earliestDate: { year: 1956, month: 1 }, latestDate: { year: 1957, month: 6 },
+    condition: (w) => (has(w, 'MAR') && w.countries.MAR.colonialRuler === 'FRA') || (has(w, 'TUN') && w.countries.TUN.colonialRuler === 'FRA'),
+    apply: (w) => {
+      for (const code of ['MAR', 'TUN']) {
+        const c = w.countries[code];
+        if (c && c.colonialRuler === 'FRA') { c.colonialRuler = undefined; c.alignment = 'NonAligned'; c.stabilityIndex = clamp(c.stabilityIndex + 8, 0, 100); }
+      }
+      if (has(w, 'FRA')) w.countries.FRA.politics.approvalPct = clamp(w.countries.FRA.politics.approvalPct - 3, 2, 98);
+      return 'Facing rising nationalist pressure, France grants independence to Morocco and Tunisia through negotiated settlements.';
+    },
+    oneTime: true,
+  },
+  {
+    id: 'congo_crisis',
+    title: 'Congo Crisis',
+    earliestDate: { year: 1960, month: 6 }, latestDate: { year: 1961, month: 12 },
+    condition: (w) => has(w, 'COD'),
+    apply: (w) => {
+      const c = w.countries.COD;
+      c.government = 'Independent Republic (Political Crisis)';
+      c.stabilityIndex = clamp(c.stabilityIndex - 25, 0, 100);
+      return 'Belgium abruptly grants Congolese independence; the new state immediately descends into secession crises and army mutiny, drawing in UN peacekeepers and Cold War rivalry over its mineral wealth.';
+    },
+    oneTime: true,
+  },
+  {
+    id: 'french_west_africa_independence',
+    title: 'French West Africa Decolonization',
+    earliestDate: { year: 1960, month: 1 }, latestDate: { year: 1960, month: 12 },
+    condition: (w) => has(w, 'SEN') && w.countries.SEN.colonialRuler === 'FRA',
+    apply: (w) => {
+      w.countries.SEN.colonialRuler = undefined;
+      w.countries.SEN.alignment = 'NonAligned';
+      w.countries.SEN.stabilityIndex = clamp(w.countries.SEN.stabilityIndex + 8, 0, 100);
+      return "France's sub-Saharan African colonies, including Senegal, gain independence in a wave of negotiated transitions across 1960 -- the 'Year of Africa'.";
     },
     oneTime: true,
   },

@@ -14,9 +14,9 @@ export default function DiplomacyPanel() {
 
   return (
     <div className="p-5 max-w-5xl mx-auto">
-      <div className="bg-slate-900/60 border border-slate-800 rounded-lg overflow-hidden">
+      <div className="brackets bg-void-900/60 border border-void-700 rounded-sm overflow-hidden">
         <table className="w-full text-sm">
-          <thead className="bg-slate-950/60 text-slate-500 text-xs uppercase">
+          <thead className="bg-void-950/60 text-void-500 text-xs uppercase">
             <tr>
               <th className="text-left px-3 py-2">Nation</th>
               <th className="text-left px-3 py-2">Alignment</th>
@@ -32,22 +32,22 @@ export default function DiplomacyPanel() {
               const rel = getRelation(c, o.code);
               const draft = aidDrafts[o.code] ?? rel.aidFlowMillionPerYear;
               return (
-                <tr key={o.code} className="border-t border-slate-800 hover:bg-slate-900/40">
-                  <td className="px-3 py-1.5 text-slate-200">{o.name}{o.isMajor ? ' ★' : ''}</td>
-                  <td className="px-3 py-1.5 text-slate-400">{o.alignment}</td>
-                  <td className={`px-3 py-1.5 text-right tabular-nums font-medium ${rel.relationScore >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>{rel.relationScore.toFixed(0)}</td>
-                  <td className="px-3 py-1.5 text-right tabular-nums text-slate-400">${rel.tradeVolumeBillion.toFixed(2)}B</td>
-                  <td className="px-3 py-1.5 text-center text-xs text-slate-500">
-                    {rel.sanctioned && <span className="text-rose-400 mr-1">SANC</span>}
-                    {rel.militaryCooperation && <span className="text-sky-400 mr-1">MIL</span>}
-                    {rel.intelligenceSharing && <span className="text-violet-400">INT</span>}
+                <tr key={o.code} className="border-t border-void-800 hover:bg-void-900/40">
+                  <td className="px-3 py-1.5 text-void-200">{o.name}{o.isMajor ? ' ★' : ''}</td>
+                  <td className="px-3 py-1.5 text-void-400">{o.alignment}</td>
+                  <td className={`px-3 py-1.5 text-right tabular-nums font-medium ${rel.relationScore >= 0 ? 'text-sage-400' : 'text-brick-400'}`}>{rel.relationScore.toFixed(0)}</td>
+                  <td className="px-3 py-1.5 text-right tabular-nums text-void-400">${rel.tradeVolumeBillion.toFixed(2)}B</td>
+                  <td className="px-3 py-1.5 text-center text-xs text-void-500">
+                    {rel.sanctioned && <span className="text-brick-400 mr-1">SANC</span>}
+                    {rel.militaryCooperation && <span className="text-steel-400 mr-1">MIL</span>}
+                    {rel.intelligenceSharing && <span className="text-khaki-400">INT</span>}
                   </td>
                   <td className="px-3 py-1.5 text-right">
                     <input
                       type="number" min={0} step={10} value={draft}
                       onChange={(e) => setAidDrafts((d) => ({ ...d, [o.code]: parseFloat(e.target.value) || 0 }))}
                       onBlur={() => dispatch({ type: 'setAidFlow', to: o.code, millionPerYear: draft })}
-                      className="w-20 bg-slate-800 border border-slate-700 rounded px-1.5 py-0.5 text-right text-xs text-slate-200"
+                      className="w-20 bg-void-800 border border-void-700 rounded px-1.5 py-0.5 text-right text-xs text-void-200"
                     />
                   </td>
                   <td className="px-3 py-1.5">
@@ -69,7 +69,7 @@ export default function DiplomacyPanel() {
           </tbody>
         </table>
       </div>
-      <p className="text-xs text-slate-500 mt-2">NATO / Warsaw Pact membership shown under each nation's alignment. Trade and relation scores drift automatically based on bloc alignment, cooperation, sanctions, and aid.</p>
+      <p className="text-xs text-void-500 mt-2">NATO / Warsaw Pact membership shown under each nation's alignment. Trade and relation scores drift automatically based on bloc alignment, cooperation, sanctions, and aid.</p>
     </div>
   );
 }
@@ -79,7 +79,7 @@ function ActionBtn({ children, onClick, disabled }: { children: React.ReactNode;
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`px-2 py-0.5 rounded text-xs ${disabled ? 'bg-slate-800 text-slate-600' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}
+      className={`px-2 py-0.5 rounded text-xs ${disabled ? 'bg-void-800 text-void-600' : 'bg-void-800 text-void-300 hover:bg-void-700'}`}
     >
       {children}
     </button>

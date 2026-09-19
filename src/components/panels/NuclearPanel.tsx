@@ -19,7 +19,7 @@ export default function NuclearPanel() {
 
   if (!n.hasNuclearWeapons) {
     return (
-      <div className="p-5 max-w-3xl mx-auto text-slate-400 text-sm">
+      <div className="p-5 max-w-3xl mx-auto text-void-400 text-sm">
         {c.name} does not yet possess nuclear weapons. Sustained investment in the Tech Index (via Research
         spending and industrial development) combined with the historical minimum timeline will determine when
         a nuclear breakout becomes possible.
@@ -41,23 +41,23 @@ export default function NuclearPanel() {
         <Metric label="Readiness" value={`${n.readinessPct.toFixed(0)}/100`} />
       </div>
 
-      <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-4">
-        <h3 className="text-slate-100 font-semibold mb-3">Nuclear Doctrine</h3>
+      <div className="brackets bg-void-900/60 border border-void-700 rounded-sm p-4">
+        <h3 className="text-[11px] uppercase tracking-[0.14em] text-sage-300 font-semibold mb-3 pb-1 border-b border-void-800">Nuclear Doctrine</h3>
         <div className="grid sm:grid-cols-2 gap-2">
           {DOCTRINES.map((d) => (
             <button
               key={d.id}
               onClick={() => dispatch({ type: 'setNuclearDoctrine', doctrine: d.id })}
-              className={`text-left p-3 rounded border text-sm ${n.doctrine === d.id ? 'border-amber-400 bg-amber-400/10' : 'border-slate-800 bg-slate-950/40 hover:border-slate-600'}`}
+              className={`text-left p-3 rounded border text-sm ${n.doctrine === d.id ? 'border-sage-400 bg-sage-400/10' : 'border-void-800 bg-void-950/40 hover:border-void-600'}`}
             >
-              <div className="text-slate-100 font-medium mb-0.5">{d.label}</div>
-              <div className="text-slate-500 text-xs">{d.blurb}</div>
+              <div className="text-void-100 font-medium mb-0.5">{d.label}</div>
+              <div className="text-void-500 text-xs">{d.blurb}</div>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="text-xs text-slate-500 bg-slate-900/40 border border-slate-800 rounded-lg p-3">
+      <div className="text-xs text-void-500 bg-void-900/40 border border-void-800 rounded-sm p-3">
         Delivery systems (ICBMs, SLBMs, strategic bombers) accumulate automatically from relevant Procurement
         programs once they enter production and service. A full-scale nuclear exchange is not modeled as
         tactical combat -- it would be catastrophic and effectively end the simulation for the nations involved.
@@ -67,10 +67,10 @@ export default function NuclearPanel() {
 }
 
 function Metric({ label, value, tone }: { label: string; value: string; tone?: 'good' | 'bad' }) {
-  const color = tone === 'good' ? 'text-emerald-400' : tone === 'bad' ? 'text-rose-400' : 'text-slate-100';
+  const color = tone === 'good' ? 'text-sage-400' : tone === 'bad' ? 'text-brick-400' : 'text-void-100';
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded px-3 py-2">
-      <div className="text-slate-500 text-xs">{label}</div>
+    <div className="bg-void-900/60 border border-void-800 rounded px-3 py-2">
+      <div className="text-void-500 text-xs">{label}</div>
       <div className={`font-semibold tabular-nums ${color}`}>{value}</div>
     </div>
   );

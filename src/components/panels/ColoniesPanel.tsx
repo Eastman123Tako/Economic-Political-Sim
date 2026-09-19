@@ -18,12 +18,12 @@ export default function ColoniesPanel() {
 
   return (
     <div className="p-5 max-w-4xl mx-auto space-y-4">
-      {colonies.length === 0 && <div className="text-slate-500 text-sm">No colonial territories.</div>}
+      {colonies.length === 0 && <div className="text-void-500 text-sm">No colonial territories.</div>}
       {colonies.map((col) => (
-        <div key={col.id} className="bg-slate-900/60 border border-slate-800 rounded-lg p-4">
+        <div key={col.id} className="brackets bg-void-900/60 border border-void-700 rounded-sm p-4">
           <div className="flex justify-between items-baseline mb-2">
-            <h4 className="text-slate-100 font-semibold">{col.name}</h4>
-            <span className="text-xs text-slate-500">
+            <h4 className="text-void-100 font-semibold">{col.name}</h4>
+            <span className="text-xs text-void-500">
               {col.independent ? `Independent since ${col.independenceDate?.month}/${col.independenceDate?.year}` : `${col.populationMillion.toFixed(1)}M population`}
             </span>
           </div>
@@ -42,7 +42,7 @@ export default function ColoniesPanel() {
                   <button
                     key={s.id}
                     onClick={() => dispatch({ type: 'setColonialStrategy', colonyId: col.id, strategy: s.id })}
-                    className={`px-2.5 py-1 rounded text-xs font-medium ${col.strategy === s.id ? 'bg-amber-500 text-slate-900' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}
+                    className={`px-2.5 py-1 rounded text-xs font-medium ${col.strategy === s.id ? 'bg-sage-500 text-void-900' : 'bg-void-800 text-void-300 hover:bg-void-700'}`}
                   >
                     {s.label}
                   </button>
@@ -59,8 +59,8 @@ export default function ColoniesPanel() {
 function Stat({ label, value, bad }: { label: string; value: string; bad?: boolean }) {
   return (
     <div>
-      <div className="text-slate-500">{label}</div>
-      <div className={`font-medium ${bad ? 'text-rose-400' : 'text-slate-200'}`}>{value}</div>
+      <div className="text-void-500">{label}</div>
+      <div className={`font-medium ${bad ? 'text-brick-400' : 'text-void-200'}`}>{value}</div>
     </div>
   );
 }

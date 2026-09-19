@@ -1,5 +1,6 @@
 import { useGameStore } from '../../store/gameStore';
 import type { BudgetSpending, TaxRates, PlannedEconomyState } from '../../engine/types';
+import Panel from '../ui/Panel';
 
 const SPENDING_FIELDS: { key: keyof BudgetSpending; label: string }[] = [
   { key: 'defense', label: 'Defense' },
@@ -41,6 +42,7 @@ export default function EconomyPanel() {
 
   return (
     <div className="p-5 max-w-5xl mx-auto space-y-6">
+      <div className="text-[11px] uppercase tracking-[0.14em] text-sage-500 mb-2">Macroeconomic Indicators</div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Metric label="GDP" value={`$${e.gdpBillion.toFixed(1)}B`} />
         <Metric label="GDP / Capita" value={`$${e.gdpPerCapita.toFixed(0)}`} />
@@ -56,8 +58,7 @@ export default function EconomyPanel() {
         <Metric label="Tech Index" value={e.techIndex.toFixed(0)} />
       </div>
 
-      <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-4">
-        <h3 className="text-slate-100 font-semibold mb-3">Government Budget</h3>
+      <Panel title="Government Budget">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4 text-sm">
           <Metric label="Revenue" value={`$${b.totalRevenue.toFixed(1)}B`} />
           <Metric label="Spending" value={`$${b.totalSpending.toFixed(1)}B`} />
@@ -67,7 +68,7 @@ export default function EconomyPanel() {
 
         {c.economyType !== 'planned' ? (
           <>
-            <h4 className="text-xs uppercase tracking-wide text-slate-500 mb-2">Tax Rates</h4>
+            <h4 className="text-xs uppercase tracking-wide text-void-500 mb-2">Tax Rates</h4>
             <div className="space-y-2 mb-4">
               {TAX_FIELDS.map((f) => (
                 <Slider
@@ -83,7 +84,7 @@ export default function EconomyPanel() {
           </>
         ) : (
           <>
-            <h4 className="text-xs uppercase tracking-wide text-slate-500 mb-2">Gosplan Allocation (% of National Income)</h4>
+            <h4 className="text-xs uppercase tracking-wide text-void-500 mb-2">Gosplan Allocation (% of National Income)</h4>
             <div className="space-y-2 mb-4">
               {PLANNED_FIELDS.map((f) => (
                 <Slider
@@ -95,14 +96,14 @@ export default function EconomyPanel() {
                   onChange={(v) => dispatch({ type: 'setPlannedShare', field: f.key, value: v })}
                 />
               ))}
-              <div className="text-xs text-slate-500 pt-1">
+              <div className="text-xs text-void-500 pt-1">
                 Five-Year Plan target growth: {c.planned!.fiveYearPlanTarget.toFixed(0)}% &middot; Planner efficiency: {c.planned!.plannerEfficiencyIndex.toFixed(0)}/100
               </div>
             </div>
           </>
         )}
 
-        <h4 className="text-xs uppercase tracking-wide text-slate-500 mb-2">Spending (Billions / Year)</h4>
+        <h4 className="text-xs uppercase tracking-wide text-void-500 mb-2">Spending (Billions / Year)</h4>
         <div className="space-y-2">
           {SPENDING_FIELDS.map((f) => (
             <Slider
@@ -114,21 +115,21 @@ export default function EconomyPanel() {
               onChange={(v) => dispatch({ type: 'setSpending', field: f.key, value: v })}
             />
           ))}
-          <div className="flex justify-between text-sm pt-1 text-slate-400">
+          <div className="flex justify-between text-sm pt-1 text-void-400">
             <span>Interest Payments (computed)</span>
             <span>${b.spending.interestPayments.toFixed(1)}B</span>
           </div>
         </div>
-      </div>
+      </Panel>
     </div>
   );
 }
 
 function Metric({ label, value, tone }: { label: string; value: string; tone?: 'good' | 'bad' | 'neutral' }) {
-  const color = tone === 'good' ? 'text-emerald-400' : tone === 'bad' ? 'text-rose-400' : 'text-slate-100';
+  const color = tone === 'good' ? 'text-sage-400' : tone === 'bad' ? 'text-brick-400' : 'text-void-100';
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded px-3 py-2">
-      <div className="text-slate-500 text-xs">{label}</div>
+    <div className="bg-void-900/60 border border-void-800 rounded px-3 py-2">
+      <div className="text-void-500 text-xs">{label}</div>
       <div className={`font-semibold tabular-nums ${color}`}>{value}</div>
     </div>
   );
@@ -140,13 +141,13 @@ function Slider({ label, value, min, max, step, format, onChange }: {
 }) {
   return (
     <div className="grid grid-cols-[9rem_1fr_4.5rem] items-center gap-3 text-sm">
-      <span className="text-slate-400">{label}</span>
+      <span className="text-void-400">{label}</span>
       <input
         type="range" min={min} max={max} step={step} value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-full accent-amber-500"
+        className="w-full accent-sage-500"
       />
-      <span className="text-slate-200 text-right tabular-nums">{format(value)}</span>
+      <span className="text-void-200 text-right tabular-nums">{format(value)}</span>
     </div>
   );
 }

@@ -28,16 +28,16 @@ export default function IndustryPanel() {
   return (
     <div className="p-5 max-w-5xl mx-auto space-y-6">
       <div>
-        <h3 className="text-slate-100 font-semibold mb-3">Industrial Capacity (base 100 = Jan 1949)</h3>
+        <h3 className="text-[11px] uppercase tracking-[0.14em] text-sage-300 font-semibold mb-3 pb-1 border-b border-void-800">Industrial Capacity (base 100 = Jan 1949)</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {INDUSTRY_SECTORS.map((s) => (
-            <div key={s} className="bg-slate-900/60 border border-slate-800 rounded px-3 py-2">
+            <div key={s} className="bg-void-900/60 border border-void-800 rounded px-3 py-2">
               <div className="flex justify-between text-sm mb-1">
-                <span className="text-slate-400">{SECTOR_LABELS[s]}</span>
-                <span className="text-slate-200 font-medium tabular-nums">{c.industry[s].toFixed(0)}</span>
+                <span className="text-void-400">{SECTOR_LABELS[s]}</span>
+                <span className="text-void-200 font-medium tabular-nums">{c.industry[s].toFixed(0)}</span>
               </div>
-              <div className="h-1.5 bg-slate-800 rounded overflow-hidden">
-                <div className="h-full bg-amber-500" style={{ width: `${Math.min(100, c.industry[s] / 2)}%` }} />
+              <div className="h-1.5 bg-void-800 rounded overflow-hidden">
+                <div className="h-full bg-sage-500" style={{ width: `${Math.min(100, c.industry[s] / 2)}%` }} />
               </div>
             </div>
           ))}
@@ -45,32 +45,32 @@ export default function IndustryPanel() {
       </div>
 
       <div>
-        <h3 className="text-slate-100 font-semibold mb-1">Active Investment Programs</h3>
-        {c.industrialInvestments.length === 0 && <div className="text-slate-500 text-sm mb-3">None active.</div>}
+        <h3 className="text-[11px] uppercase tracking-[0.14em] text-sage-300 font-semibold mb-1">Active Investment Programs</h3>
+        {c.industrialInvestments.length === 0 && <div className="text-void-500 text-sm mb-3">None active.</div>}
         <div className="space-y-1.5 mb-4">
           {c.industrialInvestments.map((inv) => (
-            <div key={inv.id} className="flex justify-between items-center bg-slate-900/60 border border-slate-800 rounded px-3 py-2 text-sm">
-              <span className="text-slate-200">{inv.name}</span>
-              <span className="text-slate-500">{inv.monthsRemaining} months remaining &middot; ${inv.annualCostBillion.toFixed(1)}B/yr</span>
+            <div key={inv.id} className="flex justify-between items-center bg-void-900/60 border border-void-800 rounded px-3 py-2 text-sm">
+              <span className="text-void-200">{inv.name}</span>
+              <span className="text-void-500">{inv.monthsRemaining} months remaining &middot; ${inv.annualCostBillion.toFixed(1)}B/yr</span>
             </div>
           ))}
         </div>
 
-        <h3 className="text-slate-100 font-semibold mb-2">Launch New Program</h3>
+        <h3 className="text-[11px] uppercase tracking-[0.14em] text-sage-300 font-semibold mb-2 pb-1 border-b border-void-800">Launch New Program</h3>
         <div className="grid sm:grid-cols-2 gap-2.5">
           {TEMPLATES.map((t) => {
             const active = c.industrialInvestments.some((i) => i.id === t.id);
             return (
-              <div key={t.id} className="bg-slate-900/60 border border-slate-800 rounded p-3 text-sm">
-                <div className="text-slate-100 font-medium mb-1">{t.name}</div>
-                <div className="text-slate-500 text-xs mb-2">
+              <div key={t.id} className="bg-void-900/60 border border-void-800 rounded p-3 text-sm">
+                <div className="text-void-100 font-medium mb-1">{t.name}</div>
+                <div className="text-void-500 text-xs mb-2">
                   Sector: {SECTOR_LABELS[t.sector]} &middot; ${t.annualCostBillion.toFixed(1)}B/yr &middot; +{t.capacityBonusPct}% capacity
                   {t.civConsumptionPenaltyPct !== 0 && (t.civConsumptionPenaltyPct > 0 ? ' · consumer goods cost' : ' · boosts consumer goods')}
                 </div>
                 <button
                   disabled={active}
                   onClick={() => dispatch({ type: 'startIndustrialInvestment', investment: { ...t, monthsRemaining: 24 } })}
-                  className={`px-3 py-1 rounded text-xs font-semibold ${active ? 'bg-slate-800 text-slate-600' : 'bg-amber-500 text-slate-900 hover:bg-amber-400'}`}
+                  className={`px-3 py-1 rounded text-xs font-semibold ${active ? 'bg-void-800 text-void-600' : 'bg-sage-500 text-void-900 hover:bg-sage-400'}`}
                 >
                   {active ? 'Active' : 'Fund Program'}
                 </button>

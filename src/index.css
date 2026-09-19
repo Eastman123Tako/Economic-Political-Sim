@@ -1,5 +1,75 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------
+   "Systemic War" inspired palette: graded celadon-sage accent over a
+   dark charcoal-green base, with muted brick/steel/khaki secondary tones
+   instead of stock Tailwind slate/amber/rose/sky/violet.
+   --------------------------------------------------------------------- */
+@theme {
+  --color-void-50: #eef2ec;
+  --color-void-100: #dfe6db;
+  --color-void-200: #c2cdbb;
+  --color-void-300: #a1af97;
+  --color-void-400: #7f8f74;
+  --color-void-500: #616f57;
+  --color-void-600: #495342;
+  --color-void-700: #333c2d;
+  --color-void-800: #232922;
+  --color-void-900: #141712;
+  --color-void-950: #0a0c08;
+
+  --color-sage-50: #eef3e8;
+  --color-sage-100: #dce8d1;
+  --color-sage-200: #c3d9ae;
+  --color-sage-300: #a8c98a;
+  --color-sage-400: #8fb56e;
+  --color-sage-500: #749c55;
+  --color-sage-600: #5d7f44;
+  --color-sage-700: #486536;
+  --color-sage-800: #364c29;
+  --color-sage-900: #26361d;
+  --color-sage-950: #182310;
+
+  --color-brick-50: #f7e9e6;
+  --color-brick-100: #eecdc6;
+  --color-brick-200: #ddaa9c;
+  --color-brick-300: #c98973;
+  --color-brick-400: #b56751;
+  --color-brick-500: #9c4a3f;
+  --color-brick-600: #7f3a31;
+  --color-brick-700: #632d27;
+  --color-brick-800: #47211d;
+  --color-brick-900: #331915;
+  --color-brick-950: #200f0c;
+
+  --color-steel-50: #e8eef3;
+  --color-steel-100: #cfdce8;
+  --color-steel-200: #aec4d9;
+  --color-steel-300: #89a9c7;
+  --color-steel-400: #648eb3;
+  --color-steel-500: #4d739a;
+  --color-steel-600: #3d5c7d;
+  --color-steel-700: #304a64;
+  --color-steel-800: #253a4f;
+  --color-steel-900: #1a2938;
+  --color-steel-950: #101b25;
+
+  --color-khaki-50: #f4efe2;
+  --color-khaki-100: #e6dcbb;
+  --color-khaki-200: #d6c692;
+  --color-khaki-300: #c6b06c;
+  --color-khaki-400: #b6994f;
+  --color-khaki-500: #9c8140;
+  --color-khaki-600: #7d6733;
+  --color-khaki-700: #605027;
+  --color-khaki-800: #443a1c;
+  --color-khaki-900: #2e2612;
+  --color-khaki-950: #1c1709;
+
+  --font-sans: 'Segoe UI', system-ui, Roboto, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+
 :root {
   color-scheme: dark;
 }
@@ -7,9 +77,9 @@
 html, body, #root {
   height: 100%;
   margin: 0;
-  background: #0b0e14;
-  color: #d6dae3;
-  font-family: 'Segoe UI', system-ui, Roboto, sans-serif;
+  background: var(--color-void-950);
+  color: var(--color-void-100);
+  font-family: var(--font-sans);
 }
 
 * {
@@ -17,8 +87,40 @@ html, body, #root {
 }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #10131b; }
-::-webkit-scrollbar-thumb { background: #2b3040; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #3a4058; }
+::-webkit-scrollbar-track { background: var(--color-void-900); }
+::-webkit-scrollbar-thumb { background: var(--color-void-700); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-void-600); }
 
-.tabular-nums { font-variant-numeric: tabular-nums; }
+.tabular-nums { font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
+
+/* Briefing-panel corner brackets, used by <Panel>. */
+.brackets { position: relative; }
+.brackets::before,
+.brackets::after {
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  pointer-events: none;
+  opacity: 0.75;
+}
+.brackets::before {
+  top: -1px; left: -1px;
+  border-top: 1.5px solid var(--color-sage-500);
+  border-left: 1.5px solid var(--color-sage-500);
+}
+.brackets::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 1.5px solid var(--color-sage-500);
+  border-right: 1.5px solid var(--color-sage-500);
+}
+
+.scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(143, 181, 110, 0.025) 0px,
+    rgba(143, 181, 110, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}

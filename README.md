@@ -55,6 +55,22 @@ npm run dev      # dev server
 npm run build    # typecheck + production build
 ```
 
+## Deploying to GitHub Pages
+
+The repo ships with `.github/workflows/deploy-pages.yml`, which builds and
+publishes `dist/` on every push to `main` (or a manual run from the Actions
+tab). To turn it on:
+
+1. Push/merge this code to the `main` branch.
+2. In the repo, go to **Settings -> Pages -> Build and deployment -> Source**
+   and select **GitHub Actions**.
+3. Push to `main` (or run the "Deploy to GitHub Pages" workflow manually) --
+   the site will publish to `https://<owner>.github.io/<repo>/`.
+
+The Vite build uses a relative base path (`base: './'`), so it works
+correctly whether it's served from a domain root or a GitHub Pages project
+subpath, without needing to hardcode the repository name.
+
 ## Scope notes
 
 This is a deep but necessarily simplified model of 42 years of global

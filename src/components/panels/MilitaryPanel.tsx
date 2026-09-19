@@ -16,10 +16,10 @@ export default function MilitaryPanel() {
 
       <div className="space-y-3">
         {m.branches.map((b) => (
-          <div key={b.id} className="bg-slate-900/60 border border-slate-800 rounded-lg p-4">
+          <div key={b.id} className="brackets bg-void-900/60 border border-void-700 rounded-sm p-4">
             <div className="flex justify-between items-baseline mb-2">
-              <h4 className="text-slate-100 font-semibold">{b.name}</h4>
-              <span className="text-slate-400 text-sm">{b.personnelThousands.toFixed(0)}k personnel</span>
+              <h4 className="text-void-100 font-semibold">{b.name}</h4>
+              <span className="text-void-400 text-sm">{b.personnelThousands.toFixed(0)}k personnel</span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs">
               <Bar label="Readiness" value={b.readinessPct} />
@@ -32,13 +32,13 @@ export default function MilitaryPanel() {
         ))}
       </div>
 
-      <div className="bg-slate-900/60 border border-slate-800 rounded-lg p-4">
-        <h3 className="text-slate-100 font-semibold mb-2">Overseas Bases</h3>
-        {m.overseasBases.length === 0 && <div className="text-slate-500 text-sm">No overseas bases.</div>}
+      <div className="brackets bg-void-900/60 border border-void-700 rounded-sm p-4">
+        <h3 className="text-[11px] uppercase tracking-[0.14em] text-sage-300 font-semibold mb-2 pb-1 border-b border-void-800">Overseas Bases</h3>
+        {m.overseasBases.length === 0 && <div className="text-void-500 text-sm">No overseas bases.</div>}
         <div className="flex flex-wrap gap-1.5">
           {m.overseasBases.map((code) => {
             const country = world.countries[code];
-            return <span key={code} className="px-2 py-0.5 bg-slate-800 rounded text-xs text-slate-300">{country?.name ?? code}</span>;
+            return <span key={code} className="px-2 py-0.5 bg-void-800 rounded text-xs text-void-300">{country?.name ?? code}</span>;
           })}
         </div>
       </div>
@@ -48,22 +48,22 @@ export default function MilitaryPanel() {
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded px-3 py-2">
-      <div className="text-slate-500 text-xs">{label}</div>
-      <div className="font-semibold tabular-nums text-slate-100">{value}</div>
+    <div className="bg-void-900/60 border border-void-800 rounded px-3 py-2">
+      <div className="text-void-500 text-xs">{label}</div>
+      <div className="font-semibold tabular-nums text-void-100">{value}</div>
     </div>
   );
 }
 
 function Bar({ label, value }: { label: string; value: number }) {
-  const color = value >= 65 ? 'bg-emerald-500' : value >= 35 ? 'bg-amber-500' : 'bg-rose-500';
+  const color = value >= 65 ? 'bg-sage-500' : value >= 35 ? 'bg-khaki-400' : 'bg-brick-500';
   return (
     <div>
-      <div className="flex justify-between text-slate-500 mb-1">
+      <div className="flex justify-between text-void-500 mb-1">
         <span>{label}</span>
-        <span className="text-slate-300">{value.toFixed(0)}</span>
+        <span className="text-void-300">{value.toFixed(0)}</span>
       </div>
-      <div className="h-1.5 bg-slate-800 rounded overflow-hidden">
+      <div className="h-1.5 bg-void-800 rounded overflow-hidden">
         <div className={`h-full ${color}`} style={{ width: `${Math.min(100, value)}%` }} />
       </div>
     </div>
